@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir /var/log/pure-ftpd
+mkdir /var/log/mpd
