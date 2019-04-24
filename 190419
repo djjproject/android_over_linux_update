@@ -1,6 +1,14 @@
 #!/bin/bash
+
+# write version
 TO=20190425
+
+# write script
 mkdir /var/log/pure-ftpd
 mkdir /var/log/mpd
+
+# version management
 echo "ro.build.version.linux=$TO.120000" > /linux.prop
+
+# info message
 echo "[info] update to $TO finished..."
