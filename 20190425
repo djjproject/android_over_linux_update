@@ -7,7 +7,7 @@ TO=20190426
 CUR_VER=`cat /linux.txt | cut -c 24-31`
 
 # change log
-echo -e "\n20190425 to 20190426 update\n1. /mnt/sdcard bind fix.\n2. vendor-rw execution permission error fix.\n"
+echo -e "\n20190425 to $TO update\n1. /mnt/sdcard bind fix.\n2. vendor-rw execution permission error fix.\n"
 
 read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
