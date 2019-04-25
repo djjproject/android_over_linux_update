@@ -7,12 +7,21 @@ TO=20190425
 CUR_VER=`cat /linux.txt | cut -c 24-31`
 
 # change log
-echo -e "\n20180918 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n3. android-shell, system-rw, vendor-rw command patch\n4. uuid mount fix\n"
+echo -e "\n20180918 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n3. android-shell, system-rw, vendor-rw command patch\n4. uuid mount fix\n5. debian 9 stretch update.\n"
 
 read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
   y)
     # write update scipt
+    echo "[info] check OS version..."
+    VER=`cat /etc/os-release | grep VERSION_ID | awk -F '\"' '{print $2}'`
+    if [ $VER == "8" ]; then
+    	curl -fsSL https://github.com/djjproject/android_over_linux/raw/master/stretch-upgrade.sh | bash
+    else 
+    	echo "[info] already upgraded to debian 9 stretch..."
+    fi
+    
+    echo "[info] update started..."
     mkdir /var/log/mpd
     mkdir /var/log/pure-ftpd
     
