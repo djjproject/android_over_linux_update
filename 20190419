@@ -32,7 +32,7 @@ case $INPUT in
     echo "adb remount" >> /sbin/vendor-rw
     echo "mount -o remount rw /vendor" >> /sbin/vendor-rw
     
-    cat <<EOF > /etc/init.d/aolconfig
+    cat <<'EOF' > /etc/init.d/aolconfig
 #!/bin/sh
 
 ### BEGIN INIT INFO
