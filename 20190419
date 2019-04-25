@@ -22,11 +22,6 @@ case $INPUT in
     ;;
 esac
 
-
-# write script
-mkdir /var/log/pure-ftpd
-mkdir /var/log/mpd
-
 # version management
 echo "ro.build.version.linux=$TO.120000" > /linux.prop
 
