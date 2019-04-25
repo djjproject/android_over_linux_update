@@ -18,7 +18,7 @@ case $INPUT in
     vendor-rw
     cat <<EOF > /vendor/etc/init.ghost.linux
 # internal linux init script
-ROOT=/data/linux
+"ROOT=/data/linux
 busybox sysctl -w net.ipv4.ip_forward=1
 busybox rm -rf $ROOT/dev/*
 busybox mount -t sysfs sysfs $ROOT/sys
@@ -37,7 +37,7 @@ busybox mount -o bind /data $ROOT/data
 busybox mkdir $ROOT/vendor
 busybox mount -o bind /vendor $ROOT/vendor
 busybox mount -o bind /storage $ROOT/storage
-busybox chroot $ROOT /bin/su root -c "/etc/init.d/rc 3" > /dev/kmsg
+busybox chroot $ROOT /bin/su root -c "/etc/init.d/rc 3" > /dev/kmsg"
 EOF
     
     # info message
