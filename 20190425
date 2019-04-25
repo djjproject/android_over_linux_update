@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# write version
+TO=20190430
+
+# write script
+
+
+# version management
+echo "ro.build.version.linux=$TO.120000" > /linux.prop
+
+# info message
+echo "[info] update to $TO finished..."
