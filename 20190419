@@ -4,7 +4,7 @@
 TO=20190425
 
 # version check
-CUR_VER=`cat /linux.prop | cut -c 24-31`
+CUR_VER=`cat /linux.txt | cut -c 24-31`
 
 # change log
 echo -e "\n20190419 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n3. android-shell, system-rw, vendor-rw command patch\n4. uuid mount fix\n"
@@ -96,7 +96,7 @@ EOF
     echo "[update] update to $TO finished..."
     
     # version management
-    echo "ro.build.version.linux=$TO.120000" > /linux.prop
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
     
     ;;
   *)
