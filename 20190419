@@ -14,6 +14,9 @@ case $INPUT in
     # write update scipt
     mkdir /var/log/mpd
     mkdir /var/log/pure-ftpd
+    
+    # info message
+    echo "[update] update to $TO finished..."
     ;;
   n)
     echo "[info] user aborted."
@@ -24,6 +27,3 @@ esac
 
 # version management
 echo "ro.build.version.linux=$TO.120000" > /linux.prop
-
-# info message
-echo "[update] update to $TO finished..."
