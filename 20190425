@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# write version
+TO=20190426
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# change log
+echo -e "\n20190425 to 20190426 update\n1. /mnt/sdcard bind fix.\n"
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    mkdir /storage
+    vendor-rw
+    echo "busybox mount -o bind /storage $ROOT/storage" >> /vendor/etc/init.ghost.linux
+    
+    # info message
+    echo "[update] update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
