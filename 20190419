@@ -7,8 +7,9 @@ TO=20190425
 CUR_VER=`cat /linux.prop | cut -c 24-31`
 
 # change log
-echo -e "20190419 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n"
-read -p "[alert] apply update for $CUR_VER? (y or n) : " INPUT
+echo -e "\n20190419 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n"
+
+read -p "[alert] apply update for $CUR_VER? (y or ctrl+c for exit.) : " INPUT
 case $INPUT in
   y)
     # write update scipt
@@ -23,9 +24,6 @@ case $INPUT in
     # version management
     echo "ro.build.version.linux=$TO.120000" > /linux.prop
     
-    ;;
-  n)
-    echo "[info] user aborted."
     ;;
   *)
     ;;
