@@ -13,7 +13,7 @@ read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
   y)
     # write update scipt
-    sed -i -e "s/ATV 7/ATV 8/g" /usr/bin/version
+    sed -i -e "s/ATV 7/ATV/g" /usr/bin/version
     mkdir /storage
     chmod a+x /sbin/vendor-rw
     vendor-rw
