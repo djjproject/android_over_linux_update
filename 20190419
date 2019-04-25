@@ -17,10 +17,13 @@ case $INPUT in
     
     # info message
     echo "[update] update to $TO finished..."
-    ;;
+    
+    
     
     # version management
     echo "ro.build.version.linux=$TO.120000" > /linux.prop
+    
+    ;;
   n)
     echo "[info] user aborted."
     ;;
