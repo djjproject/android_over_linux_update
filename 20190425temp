@@ -16,7 +16,7 @@ case $INPUT in
     mkdir /storage
     chmod a+x /sbin/vendor-rw
     vendor-rw
-    cat <<EOF > /vendor/etc/init.ghost.linux
+    cat <<'EOF' > /vendor/etc/init.ghost.linux
 # internal linux init script
 "ROOT=/data/linux
 busybox sysctl -w net.ipv4.ip_forward=1
