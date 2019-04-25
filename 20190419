@@ -16,6 +16,7 @@ case $INPUT in
     mkdir /var/log/mpd
     mkdir /var/log/pure-ftpd
     
+    apt-get autoremove android-tools-adb -y
     wget https://github.com/djjproject/android_over_linux/raw/master/aolcommand/adb -P /usr/bin
     chmod a+x /usr/bin/adb
     
