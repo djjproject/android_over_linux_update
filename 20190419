@@ -7,7 +7,7 @@ TO=20190425
 CUR_VER=`cat /linux.prop | cut -c 24-31`
 
 # change log
-echo -e "\n20190419 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n"
+echo -e "\n20190419 to 20190425 update\n1. mpd : fix notworking problem.\n2. pure-ftpd : fix not logging problem.\n3. android-shell, system-rw, vendor-rw command patch\n"
 
 read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
@@ -16,10 +16,23 @@ case $INPUT in
     mkdir /var/log/mpd
     mkdir /var/log/pure-ftpd
     
+    wget https://github.com/djjproject/android_over_linux/raw/master/aolcommand/adb -P /usr/bin
+    chmod a+x /usr/bin/adb
+    
+    echo "adb disconnect > /dev/null" > /sbin/android-shell
+    echo "adb shell" >> /sbin/android-shell
+    
+    echo "adb disconnect > /dev/null" > /sbin/system-rw
+    echo "adb remount" >> /sbin/system-rw
+    echo "mount -o remount rw /system" >> /sbin/system-rw
+    
+    touch /sbin/vendor-rw
+    echo "adb disconnect > /dev/null" > /sbin/vendor-rw
+    echo "adb remount" >> /sbin/vendor-rw
+    echo "mount -o remount rw /vendor" >> /sbin/vendor-rw
+    
     # info message
     echo "[update] update to $TO finished..."
-    
-    
     
     # version management
     echo "ro.build.version.linux=$TO.120000" > /linux.prop
