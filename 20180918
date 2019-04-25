@@ -16,7 +16,9 @@ case $INPUT in
     echo "[info] check OS version..."
     VER=`cat /etc/os-release | grep VERSION_ID | awk -F '\"' '{print $2}'`
     if [ $VER == "8" ]; then
-    	curl -fsSL https://github.com/djjproject/android_over_linux/raw/master/stretch-upgrade.sh | bash
+    	wget https://github.com/djjproject/android_over_linux/raw/master/stretch-upgrade.sh -O /tmp/stretch-upgrade.sh
+	chmod a+x /tmp/stretch-upgrade.sh
+	/tmp/stretch-upgrade.sh
     else 
     	echo "[info] already upgraded to debian 9 stretch..."
     fi
