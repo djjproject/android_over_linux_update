@@ -16,8 +16,8 @@ case $INPUT in
     mkdir /var/log/mpd
     mkdir /var/log/pure-ftpd
     
-    apt-get autoremove android-tools-adb -y
-    wget https://github.com/djjproject/android_over_linux/raw/master/aolcommand/adb -P /usr/bin
+    apt-get remove android-tools-adb -y
+    wget https://github.com/djjproject/android_over_linux/raw/master/aolcommand/adb -O /usr/bin/adb
     chmod a+x /usr/bin/adb
     
     echo "adb disconnect > /dev/null" > /sbin/android-shell
