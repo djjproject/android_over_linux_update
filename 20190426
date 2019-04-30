@@ -13,7 +13,7 @@ read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
   y)
     # write update scipt
-    echo "db disconnect > /dev/null 2>&1" > /sbin/shutdown
+    echo "adb disconnect > /dev/null 2>&1" > /sbin/shutdown
     echo "adb shell shutdown > /dev/null 2>&1" >> /sbin/shutdown      
 
     # info message
