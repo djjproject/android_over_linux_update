@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# write version
+TO=20190615
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# change log
+echo -e "\n20190501 to $TO update\n1. disable KSM to inscrease stability.\n"
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    sed -i 's,su root -c "sysctl --system",su root -c "sysctl --system"\n    su root -c "echo 2 > /sys/kernel/mm/ksm/run",g' /etc/init.d/aolinit
+    
+    # info message
+    echo "[update] update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
