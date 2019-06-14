@@ -7,7 +7,7 @@ TO=20190615
 CUR_VER=`cat /linux.txt | cut -c 24-31`
 
 # change log
-echo -e "\n20190501 to $TO update\n1. disable KSM to inscrease stability.\n"
+echo -e "\n20190501 to $TO update\n1. disable KSM to increase stability.\n"
 
 read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
