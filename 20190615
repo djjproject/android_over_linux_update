@@ -23,7 +23,6 @@ case $INPUT in
     
     # info message
     echo "[update] update to $TO finished..."
-    echo "[update] you should reboot device."
     
     # version management
     echo "ro.build.version.linux=$TO.120000" > /linux.txt
