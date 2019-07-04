@@ -20,6 +20,7 @@ case $INPUT in
     wget https://github.com/djjproject/android_over_linux/raw/master/init.d/plexmediaserver -O /etc/init.d/plexmediaserver
     chmod a+x /etc/init.d/plexmediaserver
     update-rc.d plexmediaserver enable
+    service plexmediaserver start
     
     # info message
     echo "[update] update to $TO finished..."
