@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# write version
+TO=20190704
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# change log
+echo -e "\n20190615 to $TO update\n1. plexmediaserver update (official repo).\n"
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    cd /tmp
+    DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" autoremove plexmediaserver-installer
+    wget https://downloads.plex.tv/plex-media-server-new/1.16.2.1297-4b7ace214/debian/plexmediaserver_1.16.2.1297-4b7ace214_armhf.deb
+    dpkg --force-confold -i plexmediaserver_1.16.2.1297-4b7ace214_armhf.deb
+    wget https://github.com/djjproject/android_over_linux/raw/master/init.d/plexmediaserver -O /etc/init.d/plexmediaserver
+    chmod a+x /etc/init.d/plexmediaserver
+    update-rc.d plexmediaserver enable
+    
+    # info message
+    echo "[update] update to $TO finished..."
+    echo "[update] you should reboot device."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
