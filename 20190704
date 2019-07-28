@@ -63,7 +63,8 @@ case "$1" in
 esac
 exit 0
 EOF
-    
+    service plexmediaserver stop
+    service plexmediaserver start
     
     # info message
     echo "[update] update to $TO finished..."
