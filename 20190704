@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# write version
+TO=20190728
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# change log
+echo -e "\n20190704 to $TO update\n1. plexmediaserver startup fix.\n"
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    rm -rf "/var/lib/plexmediaserver/Library/Application Support"
+        cat <<'EOF' > /etc/init.d/aolconfig
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          aolconfig
+# Required-Start:    hostname $local_fs
+# Required-Stop:     
+# Default-Start:     1 2 3 4 5
+# Default-Stop:      
+# Short-Description: androidoverlinux config script
+# Description:       config by djjproject
+### END INIT INFO
+do_start() {
+    # AOL INIT SCRIPT
+    rm "/var/lib/plexmediaserver/Library/Application\ Support/Plex Media Server/plexmediaserver.pid"
+    mkdir /dev/net
+    ln -s /dev/tun /dev/net/tun
+    ln -s /dev/block/* /dev
+    # disk uuid mount
+    lsblk -o KNAME -r | grep 'sd[a-z][0-9]' > /dev/uuidmount
+    cat /dev/uuidmount | while read block
+    do
+	echo "BLOCK is $block"
+	uuid=`blkid -s UUID -o value '/dev/'$block`
+	mkdir -p '/mnt/by-uuid/'$uuid
+	mount -o bind '/mnt/media_rw/'$block '/mnt/by-uuid/'$uuid
+    done
+    lsblk -o KNAME | grep 'mmcblk1p' > /dev/uuidmount
+    cat /dev/uuidmount | while read block
+    do
+        echo "BLOCK is $block"
+	mkdir -p '/mnt/by-uuid/'$block
+        mount -o bind '/mnt/media_rw/'$block '/mnt/by-uuid/'$block
+    done
+}
+case "$1" in
+  start)
+    do_start
+  ;;
+  stop)
+  ;;
+  restart)
+  ;;
+  *)
+    echo "Usage: "$1" {start|stop|restart}"
+    exit 1
+  ;;
+esac
+exit 0
+EOF
+    
+    
+    # info message
+    echo "[update] update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
