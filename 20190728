@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# write version
+TO=20191010
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# change log
+echo -e "\n20190704 to $TO update\n1. add plexmediaserver official repo.\n2. plexmediaserver update."
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    apt update && apt install curl -y
+    
+    echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+    curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
+    
+    apt update && apt install plexmediaserver -y
+    
+    service plexmediaserver stop
+    service plexmediaserver start
+    
+    
+    # info message
+    echo "[update] update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
