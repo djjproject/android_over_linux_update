@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# write version
+TO=20191027
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# color code
+RED='\033[0;31m'
+NC='\033[0m'
+YELLOW='\033[0;33m'
+
+# change log
+echo -e "\n${YELLOW}20191010 to $TO update\n${NC}1. install bash-completion / command-not-found / dialog."
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    
+    cat <<EOF > /etc/apt/sources.list
+# debian stretch repo
+deb http://ftp.kr.debian.org/debian/ stretch main contrib non-free
+deb-src http://ftp.kr.debian.org/debian/ stretch main contrib non-free
+# debian stretch-backports repo
+deb http://ftp.kr.debian.org/debian stretch-backports main contrib non-free
+deb-src http://ftp.kr.debian.org/debian stretch-backports main contrib non-free
+# debian stretch-updates repo
+deb http://ftp.kr.debian.org/debian stretch-updates main contrib non-free
+deb-src http://ftp.kr.debian.org/debian stretch-updates main contrib non-free
+EOF
+
+    apt update && apt install bash-completion command-not-found dialog -y
+    apt update
+    update-command-not-found
+
+    # info message
+    echo -e "${YELLOW}[update] ${NC}update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
