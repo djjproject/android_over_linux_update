@@ -13,6 +13,17 @@ read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
 case $INPUT in
   y)
     # write update scipt
+        cat <<'EOF' > /etc/apt/sources.list
+# debian stretch repo
+deb http://httpredir.debian.org/debian/ stretch main contrib non-free
+deb-src http://httpredir.debian.org/debian/ stretch main contrib non-free
+# debian stretch-backports repo
+deb http://httpredir.debian.org/debian stretch-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian stretch-backports main contrib non-free
+# debian stretch-updates repo
+deb http://httpredir.debian.org/debian stretch-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian stretch-updates main contrib non-free
+EOF
     apt update && apt install curl -y
     
     echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
