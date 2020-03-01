@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # write version
-TO=20200107
+TO=20200110
 
 # version check
 CUR_VER=`cat /linux.txt | cut -c 24-31`
