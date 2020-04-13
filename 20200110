@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# write version
+TO=20200413
+
+# version check
+CUR_VER=`cat /linux.txt | cut -c 24-31`
+
+# color code
+RED='\033[0;31m'
+NC='\033[0m'
+YELLOW='\033[0;33m'
+
+# change log
+echo -e "\n${YELLOW}$(basename "$0") to $TO update\n${NC}1. update minidlna 1.2.1 (dsd / cover image)"
+
+read -p "[alert] apply update for $CUR_VER? (y / ctrl+c for exit.) : " INPUT
+case $INPUT in
+  y)
+    # write update scipt
+    curl -s https://raw.githubusercontent.com/djjproject/android_over_linux/master/minidlna_1.2.1/minidlna-install.sh | bash
+
+    # info message
+    echo -e "${YELLOW}[update] ${NC}update to $TO finished..."
+    
+    # version management
+    echo "ro.build.version.linux=$TO.120000" > /linux.txt
+    
+    ;;
+  *)
+    ;;
+esac
